@@ -1,0 +1,200 @@
+# include "iGraphics.h"
+
+int x[100];
+int y[100];
+int mx=55,my=15;
+int wx=52,wy=16;
+int tx=0,ty=0;
+int total;
+int mode=1;//for game mode 1 and for scoreboard mode2
+
+void drawFlowerAt(int p, int q)
+{
+
+	iSetColor(255, 0, 0);
+	iFilledCircle(p+4, q+4, 4);
+
+	iFilledCircle(p+4, q-4, 4);
+
+	iFilledCircle(p-4, q+4, 4);
+
+	iFilledCircle(p-4, q-4, 4);
+
+
+	iSetColor(255, 255, 0);
+	iFilledCircle(p, q, 4);
+}
+void game()
+{
+    int i,j;
+    iSetColor(0,255,0);
+    iFilledRectangle(0,0,400,400);
+    iSetColor(255,0,0);
+    iFilledRectangle(50,0,300,400);
+    iSetColor(255,255,255);
+    for(i=150;i<=250;i=i+100)
+        for(j=10;j<=400;j=j+70)
+            iFilledRectangle(i,j,10,50);
+    iSetColor(255,255,255);
+    iFilledRectangle(mx,my,50,60);
+    iSetColor(0,0,0);
+    for(wx=52;wx<=105;wx=wx+53)
+        for(wy=16;wy<=57;wy=wy+41)
+            iFilledRectangle(wx+tx,wy+ty,3,8);
+    //enemycar();
+}
+void enemycar()
+{
+    int ex,ey;
+    for(ex=55;ex<=255;ex=ex+100)
+        for(ey=395;ey>=60;ey=ey-100)
+            iFilledRectangle(ex,ey,50,60);
+}
+/*
+	function iDraw() is called again and again by the system.
+*/
+void iSpecialKeyboard(unsigned char key)
+    {
+        if(key == GLUT_KEY_RIGHT)
+        {
+            if(mx==280)
+                mx=280;
+            else
+            {
+                mx++;
+                tx++;
+            }
+        }
+        if(key == GLUT_KEY_LEFT)
+        {
+            if(mx==52)
+                mx=52;
+            else
+            {
+                mx--;
+                tx--;
+            }
+        }
+        if(key == GLUT_KEY_UP)
+        {
+            if(my==340)
+                my=340;
+            else
+            {
+                my++;
+                ty++;
+            }
+        }
+        if(key == GLUT_KEY_DOWN)
+        {
+            if(my==5)
+                my=5;
+            else
+            {
+                my--;
+                ty--;
+            }
+        }
+
+    }
+
+void iDraw()
+{
+	//place your drawing codes here
+
+	iClear();
+    if(mode==1)
+    {
+        game();
+        enemycar();
+    }
+
+    if(mode==2)
+    {
+
+
+	int i;
+	for(i = 0; i < total; i++)
+	{
+		drawFlowerAt(x[i], y[i]);
+	}
+
+	iText(10, 10, "Left click to draw, Right click to delete.");
+	}
+}
+
+/*
+	function iMouseMove() is called when the user presses and drags the mouse.
+	(mx, my) is the position where the mouse pointer is.
+*/
+void iMouseMove(int mx, int my)
+{
+	//place your codes here
+}
+
+/*
+	function iMouse() is called when the user presses/releases the mouse.
+	(mx, my) is the position where the mouse pointer is.
+*/
+void iMouse(int button, int state, int mx, int my)
+{
+	if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+		//place your codes here
+		if(total < 100)
+		{
+			x[total] = mx;
+			y[total] = my;
+			total++;
+		}
+	}
+	if(button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
+	{
+		//place your codes here
+		if(total>0)
+		{
+			total--;
+		}
+	}
+}
+
+/*
+	function iKeyboard() is called whenever the user hits a key in keyboard.
+	key- holds the ASCII value of the key pressed.
+*/
+void iKeyboard(unsigned char key)
+{
+	if(key == 'x')
+	{
+		//do something with 'x'
+		exit(0);
+	}
+	//place your codes for other keys here
+}
+
+/*
+	function iSpecialKeyboard() is called whenver user hits special keys like-
+	function keys, home, end, pg up, pg down, arraows etc. you have to use
+	appropriate constants to detect them. A list is:
+	GLUT_KEY_F1, GLUT_KEY_F2, GLUT_KEY_F3, GLUT_KEY_F4, GLUT_KEY_F5, GLUT_KEY_F6,
+	GLUT_KEY_F7, GLUT_KEY_F8, GLUT_KEY_F9, GLUT_KEY_F10, GLUT_KEY_F11, GLUT_KEY_F12,
+	GLUT_KEY_LEFT, GLUT_KEY_UP, GLUT_KEY_RIGHT, GLUT_KEY_DOWN, GLUT_KEY_PAGE UP,
+	GLUT_KEY_PAGE DOWN, GLUT_KEY_HOME, GLUT_KEY_END, GLUT_KEY_INSERT
+*/
+//void iSpecialKeyboard(unsigned char key)
+//{
+
+	//if(key == GLUT_KEY_END)
+	//{
+		//exit(0);
+	//}
+	//place your codes for other keys here
+//}
+
+int main()
+{
+	//place your own initialization codes here.
+	total = 0;
+	iInitialize(400, 400, "MouseDemo");
+	return 0;
+}

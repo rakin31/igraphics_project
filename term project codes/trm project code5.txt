@@ -1,0 +1,439 @@
+# include "iGraphics.h"
+
+int x[100];
+int y[100];
+int mx=55,my=15;
+int wx=52,wy=16;
+int wx1,wy1;
+int wx2,wy2;
+int wx3,wy3;
+int tx=0,ty=0;
+int t1=0,t2=0,t3=0,t4=0;
+int total;
+int mode=1;//for game mode 1 and for scoreboard mode2
+char scr[5];
+char life[2];
+int s1=0,s2=0,s3=0,s4=0;
+
+void drawFlowerAt(int p, int q)
+{
+
+	iSetColor(255, 0, 0);
+	iFilledCircle(p+4, q+4, 4);
+
+	iFilledCircle(p+4, q-4, 4);
+
+	iFilledCircle(p-4, q+4, 4);
+
+	iFilledCircle(p-4, q-4, 4);
+
+
+	iSetColor(255, 255, 0);
+	iFilledCircle(p, q, 4);
+}
+void game()
+{
+    int i,j;
+    iSetColor(0,255,0);
+    iFilledRectangle(0,0,400,400);
+    iSetColor(255,0,0);
+    iFilledRectangle(50,0,300,400);
+    iSetColor(255,255,255);
+    for(i=150;i<=250;i=i+100)
+        for(j=10;j<=400;j=j+70)
+            iFilledRectangle(i,j,10,50);
+    iSetColor(255,255,255);
+    iFilledRectangle(mx,my,50,60);
+    iSetColor(0,0,0);
+    for(wx=52;wx<=105;wx=wx+53)
+        for(wy=16;wy<=57;wy=wy+41)
+            iFilledRectangle(wx+tx,wy+ty,3,8);
+}
+void enemycar()
+{
+    int wx,wy;
+    iSetColor(255,255,255);
+    iFilledRectangle(68,395-t1,55,-60);
+    iFilledRectangle(175,200-t1,55,-60);
+    iFilledRectangle(275,395-t1,55,-60);
+    iSetColor(0,0,0);
+    for(wx=65;wx<=130;wx=wx+58)
+        for(wy=390;wy>=330;wy=wy-41)
+            iFilledRectangle(wx,wy-t1,3,-8);
+    for(wx=172;wx<=232;wx=wx+58)
+        for(wy=195;wy>=135;wy=wy-41)
+            iFilledRectangle(wx,wy-t1,3,-8);
+    for(wx=272;wx<=332;wx=wx+58)
+        for(wy=390;wy>=330;wy=wy-41)
+            iFilledRectangle(wx,wy-t1,3,-8);
+}
+
+void enemycar1()
+{
+    int wx1,wy1;
+    iSetColor(255,255,255);
+    iFilledRectangle(68,465-t2,55,-60);
+    iFilledRectangle(175,465-t2,55,-60);
+    iFilledRectangle(275,615-t2,55,-60);
+    iSetColor(0,0,0);
+    for(wx1=65;wx1<=130;wx1=wx1+58)
+        for(wy1=460;wy1>=400;wy1=wy1-41)
+            iFilledRectangle(wx1,wy1-t2,3,-8);
+    for(wx1=172;wx1<=232;wx1=wx1+58)
+        for(wy1=460;wy1>=400;wy1=wy1-41)
+            iFilledRectangle(wx1,wy1-t2,3,-8);
+    for(wx1=272;wx1<=332;wx1=wx1+58)
+        for(wy1=610;wy1>=560;wy1=wy1-41)
+            iFilledRectangle(wx1,wy1-t2,3,-8);
+}
+void enemycar2()
+{
+    int wx2,wy2;
+    iSetColor(255,255,255);
+    iFilledRectangle(68,615-t3,55,-60);
+    iFilledRectangle(175,480-t3,55,-60);
+    iFilledRectangle(275,765-t3,55,-60);
+    iSetColor(0,0,0);
+    for(wx2=65;wx2<=130;wx2=wx2+58)
+        for(wy2=610;wy2>=550;wy2=wy2-41)
+            iFilledRectangle(wx2,wy2-t3,3,-8);
+    for(wx2=172;wx2<=232;wx2=wx2+58)
+        for(wy2=475;wy2>=415;wy2=wy2-41)
+            iFilledRectangle(wx2,wy2-t3,3,-8);
+    for(wx2=272;wx2<=332;wx2=wx2+58)
+        for(wy2=760;wy2>=710;wy2=wy2-41)
+            iFilledRectangle(wx2,wy2-t3,3,-8);
+}
+void enemycar3()
+{
+    int wx3,wy3;
+    iSetColor(255,255,255);
+    iFilledRectangle(68,780-t4,55,-60);
+    iFilledRectangle(175,620-t4,55,-60);
+    iFilledRectangle(275,470-t4,55,-60);
+    iSetColor(0,0,0);
+    for(wx3=65;wx3<=130;wx3=wx3+58)
+        for(wy3=775;wy3>=720;wy3=wy3-41)
+            iFilledRectangle(wx3,wy3-t4,3,-8);
+    for(wx3=172;wx3<=232;wx3=wx3+58)
+        for(wy3=615;wy3>=555;wy3=wy3-41)
+            iFilledRectangle(wx3,wy3-t4,3,-8);
+    for(wx3=272;wx3<=332;wx3=wx3+58)
+        for(wy3=465;wy3>=405;wy3=wy3-41)
+            iFilledRectangle(wx3,wy3-t4,3,-8);
+}
+void score()
+{
+    iSetColor(0,0,255);
+    iText(10, 360, "score: ");
+    scr[0]=s4+48;
+    scr[1]=s3+48;
+    scr[2]=s2+48;
+    scr[3]=s1+48;
+    scr[4]='\0';
+    iText(58,359,scr);
+}
+void life()
+{
+    iSetColor(0,0,255);
+    iText(10,345,"LIFE");
+    iText(20,344,life);
+}
+/*
+	function iDraw() is called again and again by the system.
+*/
+void iSpecialKeyboard(unsigned char key)
+    {
+        if(key == GLUT_KEY_RIGHT)
+        {
+            if(mx==280)
+                mx=280;
+            else
+            {
+                mx++;
+                tx++;
+            }
+        }
+        if(key == GLUT_KEY_LEFT)
+        {
+            if(mx==52)
+                mx=52;
+            else
+            {
+                mx--;
+                tx--;
+            }
+        }
+        if(key == GLUT_KEY_UP)
+        {
+            if(my==340)
+                my=340;
+            else
+            {
+                my++;
+                ty++;
+            }
+        }
+        if(key == GLUT_KEY_DOWN)
+        {
+            if(my==5)
+                my=5;
+            else
+            {
+                my--;
+                ty--;
+            }
+        }
+    }
+
+void iDraw()
+{
+	//place your drawing codes here
+
+	iClear();
+    if(mode==1)
+    {
+        //iShowBMP(0,0,"0.bmp");
+
+
+        game();
+        score();
+        life();
+        enemycar();
+        if(t1>=150)
+            enemycar1();
+        if(t2>=150)
+            enemycar2();
+        if(t3>=150)
+            enemycar3();
+        iSetColor(0,255,0);
+        if((mx>=18 && mx<=128) && (my>=274-t1 && my<=395-t1))//for 1st car of enemycar
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        if((mx>=119 && mx<=234) && (my>=79-t1 && my<=200-t1))//for 2nd car of enemycar
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        if((mx>=218 && mx<=328) && (my>=274-t1 && my<=395-t1))//for 3rd car of enemycar
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        if((mx>=18 && mx<=128) && (my>=344-t2 && my<=465-t2))//for 1st car of enemycar1
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        if((mx>=119 && mx<=234) && (my>=344-t2 && my<=465-t2))//for 2nd car of enemycar1
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        if((mx>=218 && mx<=328) && (my>=495-t2 && my<=615-t2))//for 3rd car of enemycar1
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+
+        if((mx>=18 && mx<=128) && (my>=495-t3 && my<=615-t3))//for 1st car of enemycar2
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        if((mx>=119 && mx<=234) && (my>=360-t3 && my<=480-t3))//for 2nd car of enemycar2
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        if((mx>=218 && mx<=328) && (my>=645-t3 && my<=765-t3))//for 3rd car of enemycar2
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        if((mx>=18 && mx<=128) && (my>=660-t4 && my<=780-t4))//for 1st car of enemycar3
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        if((mx>=119 && mx<=234) && (my>=500-t4 && my<=620-t4))//for 2nd car of enemycar3
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        if((mx>=218 && mx<=328) && (my>=350-t4 && my<=470-t4))//for 3rd car of enemycar3
+        {
+            iText(200,200,"game over");
+            iPauseTimer(0);
+            iPauseTimer(1);
+        }
+        
+    }
+
+    if(mode==2)
+    {
+
+
+	int i;
+	for(i = 0; i < total; i++)
+	{
+		drawFlowerAt(x[i], y[i]);
+	}
+
+	iText(10, 10, "Left click to draw, Right click to delete.");
+	}
+}
+
+/*
+	function iMouseMove() is called when the user presses and drags the mouse.
+	(mx, my) is the position where the mouse pointer is.
+*/
+void iMouseMove(int mx, int my)
+{
+	//place your codes here
+}
+
+/*
+	function iMouse() is called when the user presses/releases the mouse.
+	(mx, my) is the position where the mouse pointer is.
+*/
+void iMouse(int button, int state, int mx, int my)
+{
+	if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+		//place your codes here
+		if(total < 100)
+		{
+			x[total] = mx;
+			y[total] = my;
+			total++;
+		}
+	}
+	if(button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
+	{
+		//place your codes here
+		if(total>0)
+		{
+			total--;
+		}
+	}
+}
+
+/*
+	function iKeyboard() is called whenever the user hits a key in keyboard.
+	key- holds the ASCII value of the key pressed.
+*/
+void iKeyboard(unsigned char key)
+{
+	if(key == 'x')
+	{
+		//do something with 'x'
+		exit(0);
+	}
+	if(key == 'p')
+    {
+        iPauseTimer(0);
+        iPauseTimer(1);
+        //iPauseTimer(2);
+        //iPauseTimer(3);
+    }
+    if(key == 'r')
+    {
+        iResumeTimer(0);
+        iResumeTimer(1);
+        //iResumeTimer(2);
+        //iResumeTimer(3);
+    }
+	//place your codes for other keys here
+}
+
+/*
+	function iSpecialKeyboard() is called whenver user hits special keys like-
+	function keys, home, end, pg up, pg down, arraows etc. you have to use
+	appropriate constants to detect them. A list is:
+	GLUT_KEY_F1, GLUT_KEY_F2, GLUT_KEY_F3, GLUT_KEY_F4, GLUT_KEY_F5, GLUT_KEY_F6,
+	GLUT_KEY_F7, GLUT_KEY_F8, GLUT_KEY_F9, GLUT_KEY_F10, GLUT_KEY_F11, GLUT_KEY_F12,
+	GLUT_KEY_LEFT, GLUT_KEY_UP, GLUT_KEY_RIGHT, GLUT_KEY_DOWN, GLUT_KEY_PAGE UP,
+	GLUT_KEY_PAGE DOWN, GLUT_KEY_HOME, GLUT_KEY_END, GLUT_KEY_INSERT
+*/
+//void iSpecialKeyboard(unsigned char key)
+//{
+
+	//if(key == GLUT_KEY_END)
+	//{
+		//exit(0);
+	//}
+	//place your codes for other keys here
+//}
+void enemycarmove()//for 1st enemycar
+{
+    t1++;
+    if(t1>=150)
+        t2++;
+    if(t2>=150)
+        t3++;
+    if(t3>=400)
+        t4++;
+}
+//void enemycarmove1()//for 2nd enemycar
+//{
+    //if(t1>=150)
+    //t2++;
+//}
+//void enemycarmove2()//for 3rd enemycar
+//{
+    //if(t2>=150)
+    //t3++;
+//}
+//void enemycarmove3()//for 4th enemycar
+//{
+    //if(t3>=400)
+    //t4++;
+//}
+void scorechange()
+{
+    if(s1!=10)
+        s1++;
+    if(s1==10)
+    {
+        s2++;
+        s1=0;
+    }
+    if(s2==10)
+    {
+        s3++;
+        s2=0;
+    }
+    if(s3==10)
+    {
+        s4++;
+        s3=0;
+    }
+}
+
+
+int main()
+{
+	//place your own initialization codes here.
+	total = 0;
+	iSetTimer(50,enemycarmove);//1st enmcr
+	//iSetTimer(50,enemycarmove1);//2nd enmcr
+	//iSetTimer(50,enemycarmove2);//3rd enmcr
+	//iSetTimer(50,enemycarmove3);//4th enmcr
+	iSetTimer(1000,scorechange);//for score
+	iInitialize(400, 400, "CAR RACE");
+	return 0;
+}
