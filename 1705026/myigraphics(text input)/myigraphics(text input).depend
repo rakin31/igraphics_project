@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1529850438 source:f:\textinputdemo.cpp
+	"iGraphics.h"
+
+1462108168 f:\igraphics.h
+	<stdio.h>
+	<stdlib.h>
+	<gl/glut.h>
+	<time.h>
+	<math.h>
+	<windows.h>
+	<gl/glaux.h>
+
